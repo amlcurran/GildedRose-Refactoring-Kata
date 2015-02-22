@@ -57,4 +57,26 @@ public class GildedRoseTest {
         assertThat(normalItem.quality, is(50));
     }
 
+    @Test
+    public void sulfurasNeverDecreasesInValue() {
+        int startingQuality = 49;
+        Item normalItem = new Item("Sulfuras, Hand of Ragnaros", 4, startingQuality);
+
+        GildedRose gildedRose = new GildedRose(new Item[]{normalItem});
+        gildedRose.updateQuality();
+
+        assertThat(normalItem.quality, is(startingQuality));
+    }
+
+    @Test
+    public void sulfurasNeverNeedsToBeSold() {
+        int sellIn = 4;
+        Item normalItem = new Item("Sulfuras, Hand of Ragnaros", sellIn, 49);
+
+        GildedRose gildedRose = new GildedRose(new Item[]{normalItem});
+        gildedRose.updateQuality();
+
+        assertThat(normalItem.sellIn, is(sellIn));
+    }
+
 }
