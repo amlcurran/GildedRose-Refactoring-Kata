@@ -135,4 +135,48 @@ public class GildedRoseTest {
         assertThat(item.quality, is(startingQuality - 4));
     }
 
+    @Test
+    public void testNormalItemsGoOff() {
+        int sellIn = 4;
+        Item item = new Item("An item", sellIn, 10);
+
+        GildedRose gildedRose = new GildedRose(new Item[]{item});
+        gildedRose.updateQuality();
+
+        assertThat(item.sellIn, is(sellIn - 1));
+    }
+
+    @Test
+    public void testBrieGoesOff() {
+        int sellIn = 4;
+        Item item = new Item(GildedRose.BRIE, sellIn, 10);
+
+        GildedRose gildedRose = new GildedRose(new Item[]{item});
+        gildedRose.updateQuality();
+
+        assertThat(item.sellIn, is(sellIn - 1));
+    }
+
+    @Test
+    public void testBackstagePassesGoOff() {
+        int sellIn = 4;
+        Item item = new Item(GildedRose.BACKSTAGE_PASS, sellIn, 10);
+
+        GildedRose gildedRose = new GildedRose(new Item[]{item});
+        gildedRose.updateQuality();
+
+        assertThat(item.sellIn, is(sellIn - 1));
+    }
+
+    @Test
+    public void testConjuredItemsGoOff() {
+        int sellIn = 4;
+        Item item = new Item(GildedRose.CONJURED, sellIn, 10);
+
+        GildedRose gildedRose = new GildedRose(new Item[]{item});
+        gildedRose.updateQuality();
+
+        assertThat(item.sellIn, is(sellIn - 1));
+    }
+
 }
