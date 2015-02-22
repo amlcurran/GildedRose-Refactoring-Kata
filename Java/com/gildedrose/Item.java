@@ -2,6 +2,7 @@ package com.gildedrose;
 
 public class Item {
 
+    private final ValueStrategy valueStrategy;
     public String name;
 
     public int sellIn;
@@ -12,6 +13,21 @@ public class Item {
         this.name = name;
         this.sellIn = sellIn;
         this.quality = quality;
+        this.valueStrategy = getStrategyByName(name);
+    }
+
+    private static ValueStrategy getStrategyByName(String name) {
+        if (name.equals(GildedRose.BRIE)) {
+            return new ValueStrategy() {
+                public void update(Item input) {
+                    if (isPassSellByDate(input)) {
+                        input.incrementValue();
+                    }
+                    input.incrementValue();
+                }
+            };
+        }
+        return null;
     }
 
     public static boolean isPassSellByDate(Item item) {
@@ -37,36 +53,44 @@ public class Item {
     }
 
     public void update() {
-        if (!name.equals(GildedRose.BRIE) && !name.equals(GildedRose.BACKSTAGE_PASS)) {
-            decrementValue();
+        if (valueStrategy != null) {
+            valueStrategy.update(this);
         } else {
-            incrementValue();
-            if (name.equals(GildedRose.BACKSTAGE_PASS)) {
-                if (sellIn < 11) {
-                    incrementValue();
-                }
-
-                if (sellIn < 6) {
-                    incrementValue();
-                }
-            }
-        }
-
-        if (!name.equals(GildedRose.SULFURAS)) {
-            sellIn = sellIn - 1;
-        }
-
-        if (isPassSellByDate(this)) {
-            if (name.equals(GildedRose.BRIE)) {
-                incrementValue();
+            if (!name.equals(GildedRose.BRIE) && !name.equals(GildedRose.BACKSTAGE_PASS)) {
+                decrementValue();
             } else {
+                incrementValue();
                 if (name.equals(GildedRose.BACKSTAGE_PASS)) {
-                    quality = 0;
+                    if (sellIn < 11) {
+                        incrementValue();
+                    }
+
+                    if (sellIn < 6) {
+                        incrementValue();
+                    }
+                }
+            }
+
+            if (!name.equals(GildedRose.SULFURAS)) {
+                sellIn = sellIn - 1;
+            }
+
+            if (isPassSellByDate(this)) {
+                if (name.equals(GildedRose.BRIE)) {
+                    incrementValue();
                 } else {
-                    decrementValue();
+                    if (name.equals(GildedRose.BACKSTAGE_PASS)) {
+                        quality = 0;
+                    } else {
+                        decrementValue();
+                    }
                 }
             }
         }
+    }
+
+    private interface ValueStrategy {
+        void update(Item input);
     }
 
 }
