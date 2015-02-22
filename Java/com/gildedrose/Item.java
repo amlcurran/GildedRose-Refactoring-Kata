@@ -33,6 +33,22 @@ public class Item {
 
                 }
             };
+        } else if (name.equals(GildedRose.BACKSTAGE_PASS)) {
+            return new ValueStrategy() {
+                public void update(Item input) {
+                    input.incrementValue();
+                    if (input.sellIn < 11) {
+                        input.incrementValue();
+                    }
+                    if (input.sellIn < 6) {
+                        input.incrementValue();
+                    }
+                    if (input.sellIn <= 0) {
+                        input.quality = 0;
+                    }
+                    input.ageADay();
+                }
+            };
         }
         return null;
     }
@@ -59,7 +75,7 @@ public class Item {
     }
 
     @Override
-   public String toString() {
+    public String toString() {
         return this.name + ", " + this.sellIn + ", " + this.quality;
     }
 
