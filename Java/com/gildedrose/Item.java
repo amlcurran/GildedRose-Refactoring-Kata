@@ -59,8 +59,17 @@ public class Item {
                     }
                 }
             };
+        } else {
+            return new ValueStrategy() {
+                public void update(Item input) {
+                    input.ageADay();
+                    input.decrementValue();
+                    if (isPassSellByDate(input)) {
+                        input.decrementValue();
+                    }
+                }
+            };
         }
-        return null;
     }
 
     private void ageADay() {
