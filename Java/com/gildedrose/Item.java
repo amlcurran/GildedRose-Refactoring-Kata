@@ -24,6 +24,7 @@ public class Item {
                         input.incrementValue();
                     }
                     input.incrementValue();
+                    input.ageADay();
                 }
             };
         } else if (name.equals(GildedRose.SULFURAS)) {
@@ -34,6 +35,10 @@ public class Item {
             };
         }
         return null;
+    }
+
+    private void ageADay() {
+        sellIn = sellIn - 1;
     }
 
     public static boolean isPassSellByDate(Item item) {
