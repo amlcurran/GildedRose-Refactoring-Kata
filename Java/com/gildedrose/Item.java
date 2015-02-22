@@ -18,12 +18,12 @@ public class Item {
         this.sellInStrategy = SellInStrategyFactory.getByName(name);
     }
 
-    public void ageADay() {
-        sellIn = sellIn - 1;
+    public boolean isPassSellByDate() {
+        return sellIn < 0;
     }
 
-    public static boolean isPassSellByDate(Item item) {
-        return item.sellIn < 0;
+    public void ageADay() {
+        sellIn = sellIn - 1;
     }
 
     public void decrementValue() {

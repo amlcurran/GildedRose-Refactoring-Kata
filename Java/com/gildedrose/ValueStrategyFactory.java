@@ -5,7 +5,7 @@ public class ValueStrategyFactory {
         if (name.equals(GildedRose.BRIE)) {
             return new Item.Strategy() {
                 public void update(Item input) {
-                    if (Item.isPassSellByDate(input)) {
+                    if (input.isPassSellByDate()) {
                         input.incrementValue();
                     }
                     input.incrementValue();
@@ -37,7 +37,7 @@ public class ValueStrategyFactory {
                 public void update(Item input) {
                     input.decrementValue();
                     input.decrementValue();
-                    if (Item.isPassSellByDate(input)) {
+                    if (input.isPassSellByDate()) {
                         input.decrementValue();
                         input.decrementValue();
                     }
@@ -47,7 +47,7 @@ public class ValueStrategyFactory {
             return new Item.Strategy() {
                 public void update(Item input) {
                     input.decrementValue();
-                    if (Item.isPassSellByDate(input)) {
+                    if (input.isPassSellByDate()) {
                         input.decrementValue();
                     }
                 }
