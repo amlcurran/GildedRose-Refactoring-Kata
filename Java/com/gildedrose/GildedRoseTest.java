@@ -35,7 +35,7 @@ public class GildedRoseTest {
     }
 
     @Test
-     public void agedBrieIncreasesInQualityWithTime() {
+    public void agedBrieIncreasesInQualityWithTime() {
         int startingQuality = 1;
         Item normalItem = new Item("Aged Brie", 4, startingQuality);
 
@@ -43,6 +43,18 @@ public class GildedRoseTest {
         gildedRose.updateQuality();
 
         assertThat(normalItem.quality, is(startingQuality + 1));
+    }
+
+    @Test
+    public void theQualityOfAnItem_IsNeverAbove50() {
+        int startingQuality = 49;
+        Item normalItem = new Item("Aged Brie", 4, startingQuality);
+
+        GildedRose gildedRose = new GildedRose(new Item[]{normalItem});
+        gildedRose.updateQuality();
+        gildedRose.updateQuality();
+
+        assertThat(normalItem.quality, is(50));
     }
 
 }
