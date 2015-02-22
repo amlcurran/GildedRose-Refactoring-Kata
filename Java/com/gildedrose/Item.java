@@ -27,15 +27,11 @@ public class Item {
     }
 
     public void decrementValue() {
-        if (quality > 0 && !name.equals(GildedRose.SULFURAS)) {
-            quality = quality - 1;
-        }
+        quality = Math.max(0, quality - 1);
     }
 
     public void incrementValue() {
-        if (quality < 50) {
-            quality = quality + 1;
-        }
+        quality = Math.min(50, quality + 1);
     }
 
     @Override
