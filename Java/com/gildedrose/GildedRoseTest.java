@@ -22,4 +22,16 @@ public class GildedRoseTest {
         assertThat(normalItem.quality, is(startingQuality - 3));
     }
 
+    @Test
+    public void theQualityOfAnItem_IsNeverNegative() {
+        int startingQuality = 1;
+        Item normalItem = new Item("Cheese", 4, startingQuality);
+
+        GildedRose gildedRose = new GildedRose(new Item[]{normalItem});
+        gildedRose.updateQuality();
+        gildedRose.updateQuality();
+
+        assertThat(normalItem.quality, is(0));
+    }
+
 }
