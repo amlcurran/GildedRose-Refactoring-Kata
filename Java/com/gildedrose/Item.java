@@ -13,66 +13,10 @@ public class Item {
         this.name = name;
         this.sellIn = sellIn;
         this.quality = quality;
-        this.valueStrategy = getStrategyByName(name);
+        this.valueStrategy = ValueStrategyFactory.getStrategyByName(name);
     }
 
-    private static ValueStrategy getStrategyByName(String name) {
-        if (name.equals(GildedRose.BRIE)) {
-            return new ValueStrategy() {
-                public void update(Item input) {
-                    if (isPassSellByDate(input)) {
-                        input.incrementValue();
-                    }
-                    input.incrementValue();
-                    input.ageADay();
-                }
-            };
-        } else if (name.equals(GildedRose.SULFURAS)) {
-            return new ValueStrategy() {
-                public void update(Item input) {
-
-                }
-            };
-        } else if (name.equals(GildedRose.BACKSTAGE_PASS)) {
-            return new ValueStrategy() {
-                public void update(Item input) {
-                    input.incrementValue();
-                    if (input.sellIn < 11) {
-                        input.incrementValue();
-                    }
-                    if (input.sellIn < 6) {
-                        input.incrementValue();
-                    }
-                    if (input.sellIn <= 0) {
-                        input.quality = 0;
-                    }
-                    input.ageADay();
-                }
-            };
-        } else if (name.equals(GildedRose.CONJURED)) {
-            return new ValueStrategy() {
-                public void update(Item input) {
-                    input.ageADay();
-                    input.decrementValue();
-                    if (isPassSellByDate(input)) {
-                        input.decrementValue();
-                    }
-                }
-            };
-        } else {
-            return new ValueStrategy() {
-                public void update(Item input) {
-                    input.ageADay();
-                    input.decrementValue();
-                    if (isPassSellByDate(input)) {
-                        input.decrementValue();
-                    }
-                }
-            };
-        }
-    }
-
-    private void ageADay() {
+    public void ageADay() {
         sellIn = sellIn - 1;
     }
 
@@ -102,7 +46,7 @@ public class Item {
         valueStrategy.update(this);
     }
 
-    private interface ValueStrategy {
+    public interface ValueStrategy {
         void update(Item input);
     }
 
