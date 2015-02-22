@@ -4,6 +4,7 @@ class GildedRose {
     public static final String SULFURAS = "Sulfuras, Hand of Ragnaros";
     public static final String BRIE = "Aged Brie";
     public static final String BACKSTAGE_PASS = "Backstage passes to a TAFKAL80ETC concert";
+    private static final String CONJURED = "Conjured";
     Item[] items;
 
     public GildedRose(Item[] items) {
@@ -51,7 +52,8 @@ class GildedRose {
 
     private void decrementValue(Item item) {
         if (item.quality > 0 && !item.name.equals(SULFURAS)) {
-            item.quality = item.quality - 1;
+            int decrement = item.name.equals(CONJURED) ? 2 : 1;
+            item.quality = item.quality - decrement;
         }
     }
 

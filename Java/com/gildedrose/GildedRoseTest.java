@@ -113,4 +113,26 @@ public class GildedRoseTest {
         assertThat(item.quality, is(startingQuality + 3));
     }
 
+    @Test
+    public void testConjuredItems_DegradeTwiceAsFast() {
+        int startingQuality = 10;
+        Item item = new Item("Conjured", 4, startingQuality);
+
+        GildedRose gildedRose = new GildedRose(new Item[]{item});
+        gildedRose.updateQuality();
+
+        assertThat(item.quality, is(startingQuality - 2));
+    }
+
+    @Test
+    public void testConjuredItems_DegradeFourTimesAsFast_AfterTheirSellBy() {
+        int startingQuality = 10;
+        Item item = new Item("Conjured", 0, startingQuality);
+
+        GildedRose gildedRose = new GildedRose(new Item[]{item});
+        gildedRose.updateQuality();
+
+        assertThat(item.quality, is(startingQuality - 4));
+    }
+
 }
