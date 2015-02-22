@@ -13,21 +13,16 @@ class GildedRose {
     public void updateQuality() {
         for (Item item : items) {
             if (!item.name.equals(BRIE) && !item.name.equals(BACKSTAGE_PASS)) {
-                if (item.quality > 0 && !item.name.equals(SULFURAS)) {
-                    item.quality = item.quality - 1;
-                }
+                decrementValue(item);
             } else {
-                if (item.quality < 50) {
-                    item.quality = item.quality + 1;
+                incrementValue(item);
+                if (item.name.equals(BACKSTAGE_PASS)) {
+                    if (item.sellIn < 11) {
+                        incrementValue(item);
+                    }
 
-                    if (item.name.equals(BACKSTAGE_PASS)) {
-                        if (item.sellIn < 11) {
-                            addValue(item);
-                        }
-
-                        if (item.sellIn < 6) {
-                            addValue(item);
-                        }
+                    if (item.sellIn < 6) {
+                        incrementValue(item);
                     }
                 }
             }
@@ -39,22 +34,24 @@ class GildedRose {
             if (item.sellIn < 0) {
                 if (!item.name.equals(BRIE)) {
                     if (!item.name.equals(BACKSTAGE_PASS)) {
-                        if (item.quality > 0) {
-                            if (!item.name.equals(SULFURAS)) {
-                                item.quality = item.quality - 1;
-                            }
-                        }
+                        decrementValue(item);
                     } else {
                         item.quality = 0;
                     }
                 } else {
-                    addValue(item);
+                    incrementValue(item);
                 }
             }
         }
     }
 
-    private void addValue(Item item) {
+    private void decrementValue(Item item) {
+        if (item.quality > 0 && !item.name.equals(SULFURAS)) {
+            item.quality = item.quality - 1;
+        }
+    }
+
+    private void incrementValue(Item item) {
         if (item.quality < 50) {
             item.quality = item.quality + 1;
         }
