@@ -31,7 +31,7 @@ class GildedRose {
                 item.sellIn = item.sellIn - 1;
             }
 
-            if (item.sellIn < 0) {
+            if (isPassSellByDate(item)) {
                 if (item.name.equals(BRIE)) {
                     incrementValue(item);
                 } else {
@@ -43,6 +43,10 @@ class GildedRose {
                 }
             }
         }
+    }
+
+    private static boolean isPassSellByDate(Item item) {
+        return item.sellIn < 0;
     }
 
     private void decrementValue(Item item) {
