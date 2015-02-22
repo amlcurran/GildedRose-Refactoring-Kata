@@ -79,4 +79,38 @@ public class GildedRoseTest {
         assertThat(normalItem.sellIn, is(sellIn));
     }
 
+    @Test
+    public void backstagePassesHaveNoQuality_WhenTheSellingDayPasses() {
+        int startingQuality = 49;
+        Item item = new Item("Backstage passes to a TAFKAL80ETC concert", 1, startingQuality);
+
+        GildedRose gildedRose = new GildedRose(new Item[]{item});
+        gildedRose.updateQuality();
+        gildedRose.updateQuality();
+
+        assertThat(item.quality, is(0));
+    }
+
+    @Test
+    public void backstagePassesIncreaseTwiceAsFast_TenDaysBeforeTheConcert() {
+        int startingQuality = 10;
+        Item item = new Item("Backstage passes to a TAFKAL80ETC concert", 9, startingQuality);
+
+        GildedRose gildedRose = new GildedRose(new Item[]{item});
+        gildedRose.updateQuality();
+
+        assertThat(item.quality, is(startingQuality + 2));
+    }
+
+    @Test
+    public void backstagePassesIncreaseThreeTimesAsFast_FiveDaysBeforeTheConcert() {
+        int startingQuality = 10;
+        Item item = new Item("Backstage passes to a TAFKAL80ETC concert", 4, startingQuality);
+
+        GildedRose gildedRose = new GildedRose(new Item[]{item});
+        gildedRose.updateQuality();
+
+        assertThat(item.quality, is(startingQuality + 3));
+    }
+
 }
