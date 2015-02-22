@@ -2,7 +2,8 @@ package com.gildedrose;
 
 public class Item {
 
-    private final ValueStrategy valueStrategy;
+    private final Strategy valueStrategy;
+    private final Strategy sellInStrategy;
     public String name;
 
     public int sellIn;
@@ -13,7 +14,8 @@ public class Item {
         this.name = name;
         this.sellIn = sellIn;
         this.quality = quality;
-        this.valueStrategy = ValueStrategyFactory.getStrategyByName(name);
+        this.valueStrategy = ValueStrategyFactory.getByName(name);
+        this.sellInStrategy = SellInStrategyFactory.getByName(name);
     }
 
     public void ageADay() {
@@ -43,10 +45,11 @@ public class Item {
     }
 
     public void update() {
+        sellInStrategy.update(this);
         valueStrategy.update(this);
     }
 
-    public interface ValueStrategy {
+    public interface Strategy {
         void update(Item input);
     }
 

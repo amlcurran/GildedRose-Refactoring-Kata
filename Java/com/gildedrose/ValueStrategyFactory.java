@@ -1,11 +1,10 @@
 package com.gildedrose;
 
 public class ValueStrategyFactory {
-    static Item.ValueStrategy getStrategyByName(String name) {
+    static Item.Strategy getByName(String name) {
         if (name.equals(GildedRose.BRIE)) {
-            return new Item.ValueStrategy() {
+            return new Item.Strategy() {
                 public void update(Item input) {
-                    input.ageADay();
                     if (Item.isPassSellByDate(input)) {
                         input.incrementValue();
                     }
@@ -13,15 +12,14 @@ public class ValueStrategyFactory {
                 }
             };
         } else if (name.equals(GildedRose.SULFURAS)) {
-            return new Item.ValueStrategy() {
+            return new Item.Strategy() {
                 public void update(Item input) {
 
                 }
             };
         } else if (name.equals(GildedRose.BACKSTAGE_PASS)) {
-            return new Item.ValueStrategy() {
+            return new Item.Strategy() {
                 public void update(Item input) {
-                    input.ageADay();
                     input.incrementValue();
                     if (input.sellIn < 11) {
                         input.incrementValue();
@@ -35,9 +33,8 @@ public class ValueStrategyFactory {
                 }
             };
         } else if (name.equals(GildedRose.CONJURED)) {
-            return new Item.ValueStrategy() {
+            return new Item.Strategy() {
                 public void update(Item input) {
-                    input.ageADay();
                     input.decrementValue();
                     if (Item.isPassSellByDate(input)) {
                         input.decrementValue();
@@ -45,9 +42,8 @@ public class ValueStrategyFactory {
                 }
             };
         } else {
-            return new Item.ValueStrategy() {
+            return new Item.Strategy() {
                 public void update(Item input) {
-                    input.ageADay();
                     input.decrementValue();
                     if (Item.isPassSellByDate(input)) {
                         input.decrementValue();
