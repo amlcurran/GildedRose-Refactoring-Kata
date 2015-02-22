@@ -99,40 +99,7 @@ public class Item {
     }
 
     public void update() {
-        if (valueStrategy != null) {
-            valueStrategy.update(this);
-        } else {
-            if (!name.equals(GildedRose.BRIE) && !name.equals(GildedRose.BACKSTAGE_PASS)) {
-                decrementValue();
-            } else {
-                incrementValue();
-                if (name.equals(GildedRose.BACKSTAGE_PASS)) {
-                    if (sellIn < 11) {
-                        incrementValue();
-                    }
-
-                    if (sellIn < 6) {
-                        incrementValue();
-                    }
-                }
-            }
-
-            if (!name.equals(GildedRose.SULFURAS)) {
-                sellIn = sellIn - 1;
-            }
-
-            if (isPassSellByDate(this)) {
-                if (name.equals(GildedRose.BRIE)) {
-                    incrementValue();
-                } else {
-                    if (name.equals(GildedRose.BACKSTAGE_PASS)) {
-                        quality = 0;
-                    } else {
-                        decrementValue();
-                    }
-                }
-            }
-        }
+        valueStrategy.update(this);
     }
 
     private interface ValueStrategy {
