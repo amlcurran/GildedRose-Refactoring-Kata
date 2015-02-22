@@ -26,6 +26,12 @@ public class Item {
                     input.incrementValue();
                 }
             };
+        } else if (name.equals(GildedRose.SULFURAS)) {
+            return new ValueStrategy() {
+                public void update(Item input) {
+
+                }
+            };
         }
         return null;
     }
