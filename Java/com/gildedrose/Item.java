@@ -28,8 +28,7 @@ public class Item {
 
     public void decrementValue() {
         if (quality > 0 && !name.equals(GildedRose.SULFURAS)) {
-            int decrement = name.equals(GildedRose.CONJURED) ? 2 : 1;
-            quality = quality - decrement;
+            quality = quality - 1;
         }
     }
 

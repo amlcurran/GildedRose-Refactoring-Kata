@@ -36,7 +36,9 @@ public class ValueStrategyFactory {
             return new Item.Strategy() {
                 public void update(Item input) {
                     input.decrementValue();
+                    input.decrementValue();
                     if (Item.isPassSellByDate(input)) {
+                        input.decrementValue();
                         input.decrementValue();
                     }
                 }
