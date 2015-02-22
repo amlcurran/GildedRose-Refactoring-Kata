@@ -4,10 +4,8 @@ public class Item {
 
     private final Strategy valueStrategy;
     private final Strategy sellInStrategy;
-    public String name;
-
+    private String name;
     public int sellIn;
-
     public int quality;
 
     public Item(String name, int sellIn, int quality) {
