@@ -34,4 +34,15 @@ public class GildedRoseTest {
         assertThat(normalItem.quality, is(0));
     }
 
+    @Test
+     public void agedBrieIncreasesInQualityWithTime() {
+        int startingQuality = 1;
+        Item normalItem = new Item("Aged Brie", 4, startingQuality);
+
+        GildedRose gildedRose = new GildedRose(new Item[]{normalItem});
+        gildedRose.updateQuality();
+
+        assertThat(normalItem.quality, is(startingQuality + 1));
+    }
+
 }
