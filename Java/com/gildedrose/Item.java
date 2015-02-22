@@ -49,6 +49,16 @@ public class Item {
                     input.ageADay();
                 }
             };
+        } else if (name.equals(GildedRose.CONJURED)) {
+            return new ValueStrategy() {
+                public void update(Item input) {
+                    input.ageADay();
+                    input.decrementValue();
+                    if (isPassSellByDate(input)) {
+                        input.decrementValue();
+                    }
+                }
+            };
         }
         return null;
     }
