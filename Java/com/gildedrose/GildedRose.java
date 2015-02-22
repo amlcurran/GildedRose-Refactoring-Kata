@@ -32,14 +32,14 @@ class GildedRose {
             }
 
             if (item.sellIn < 0) {
-                if (!item.name.equals(BRIE)) {
-                    if (!item.name.equals(BACKSTAGE_PASS)) {
-                        decrementValue(item);
-                    } else {
-                        item.quality = 0;
-                    }
-                } else {
+                if (item.name.equals(BRIE)) {
                     incrementValue(item);
+                } else {
+                    if (item.name.equals(BACKSTAGE_PASS)) {
+                        item.quality = 0;
+                    } else {
+                        decrementValue(item);
+                    }
                 }
             }
         }
